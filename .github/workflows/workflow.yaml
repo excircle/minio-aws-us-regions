@@ -71,7 +71,7 @@ jobs:
         run: export TF_PLUGIN_CACHE_DIR=${{ env.TF_PLUGIN_CACHE_DIR }}; terraform init -backend-config="bucket=${TF_S3_BUCKET}" -backend-config="key=${TF_S3_KEY}" -backend-config="region=${AWS_DEFAULT_REGION}"
 
       - name: Apply Regional VPC(s)
-        run: terraform apply -target=module.minio-vpc-east-1 -target=module.minio-vpc-east-2 -target=module.minio-vpc-west-1 -target=module.minio-vpc-west-2 -var="minio_license="" -var="sshkey=$(echo "${{ secrets.SSHKEY }}" | base64 --decode)" -auto-approve
+        run: terraform apply -target=module.minio-vpc-east-1 -target=module.minio-vpc-east-2 -target=module.minio-vpc-west-1 -target=module.minio-vpc-west-2 -var="minio_license=''" -var="sshkey=$(echo "${{ secrets.SSHKEY }}" | base64 --decode)" -auto-approve
 
       # - name: Apply K8s Disks
       #   working-directory: ./terraform/k8s-cluster
