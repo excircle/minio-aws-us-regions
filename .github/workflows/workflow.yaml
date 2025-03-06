@@ -117,8 +117,8 @@ jobs:
       - name: Initialize Terraform
         run: export TF_PLUGIN_CACHE_DIR=${{ env.TF_PLUGIN_CACHE_DIR }}; terraform init -backend-config="bucket=${TF_S3_BUCKET}" -backend-config="key=${TF_S3_KEY}" -backend-config="region=${AWS_DEFAULT_REGION}"
 
-      # - name: Destroy Nodes
-      #   run: terraform destroy -target=module.minio-east-1-cluster1 -target=module.minio-east-2-cluster1 -target=module.minio-west-1-cluster1 -target=module.minio-west-2-cluster1 -target=module.minio-east-1-disks -target=module.minio-east-2-disks -target=module.minio-west-1-disks -target=module.minio-west-2-disks -var="minio_license="" -var="sshkey=$(echo "${{ secrets.SSHKEY }}" | base64 --decode)" -auto-approve -lock=false
+      - name: Destroy Nodes
+        run: terraform destroy -target=module.minio-east-1-cluster1 -target=module.minio-east-2-cluster1 -target=module.minio-west-1-cluster1 -target=module.minio-west-2-cluster1 -target=module.minio-east-1-disks -target=module.minio-east-2-disks -target=module.minio-west-1-disks -target=module.minio-west-2-disks -var="minio_license=''" -var="sshkey=$(echo "${{ secrets.SSHKEY }}" | base64 --decode)" -auto-approve -lock=false
 
       - name: Destroy VPC
         run: terraform destroy -target=module.minio-vpc-east-1 -target=module.minio-vpc-east-2 -target=module.minio-vpc-west-1 -target=module.minio-vpc-west-2 -var="minio_license=''" -var="sshkey=$(echo "${{ secrets.SSHKEY }}" | base64 --decode)" -auto-approve -lock=false
